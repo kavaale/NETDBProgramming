@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace YourName
 {
@@ -6,13 +7,44 @@ namespace YourName
     {
         public static void Main(string[] args)
         {
-            // display a literal value
-            Console.WriteLine("What is your name?");
-            // input a value and assign it to a string variable
-            string name = Console.ReadLine();
-            // display the string variable
-            Console.WriteLine("Hello, " + name);
-            Console.WriteLine("Hello, {0}", name);
+            Book book = new Book();
+            book.NumberOfPages = 100;
+            book.Title = "Fahrenheit 451";
+            book.Id = 2;
+            book.Display();
+
+            Book book2 = new Book();
+
+            List<Book> books = new List<Book>();
+            books.Add(book);
+            books.Add(book2);
+
+            Album album = new Album();
+            album.Id = 3;
+            album.Title = "Beatles";
+            album.Tracks = 16;
+            album.Display();
+
+            List<Album> albums = new List<Album>();
+            albums.Add(album);
+
+
+
+
+
+
+            Media bk = new Book();
+            Media alb = new Album();
+            Media mov = new Movie();
+
+            List<Media> media = new List<Media>();
+            media.Add(bk);
+            media.Add(alb);
+            media.Add(mov);
+
+            // CANNOT DO THIS
+            //List<Book> bookList = new List<Book>();
+            //bookList.Add(bk);
         }
     }
 }
