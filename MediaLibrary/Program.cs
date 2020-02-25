@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using MediaLibrary.FileManager;
+using MediaLibrary.Models;
 using NLog;
 
 namespace MediaLibrary
@@ -10,11 +13,45 @@ namespace MediaLibrary
 
         public static void Main(string[] args)
         {
+            Book bk = new Book();
+            Album al = new Album();
+            Movie mv = new Movie();
+            List<Book> bookList = new List<Book>();
+            bookList.Add(bk);
+
+            Media media1 = new Movie();
+            Media media2 = new Album();
+            Media media3 = new Book();
+            media3.mediaId = 1;
+            media3.title = "MyTitle";
+            media3.genres = new List<string>() {"Horror"};
+            ((Book) media3).author = "Mark";
+
+            media3.Display();
+
+            Media media4 = new Game();
+            media4.mediaId = 2;
+            media4.title = "New Fantastic Game";
+            media4.Display();
+
+
+            IMedia newMedia = new VHSTape();
+            newMedia.Play();
+
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadLine();
+
+            List<Media> mediaList = new List<Media>();
+            mediaList.Add(media1);
+            mediaList.Add(media2);
+            mediaList.Add(media3);
+
             logger.Info("Program started");
 
-            string scrubbedFile = FileScrubber.ScrubMovies("../../movies.csv");
-            string albumFileName = "../../albums.csv";
-            string bookFileName = "../../books.csv";
+            string scrubbedFile = FileScrubber.ScrubMovies("../../Files/movies.csv");
+            string albumFileName = "../../Files/albums.csv";
+            string bookFileName = "../../Files/books.csv";
+
             MovieFile movieFile = new MovieFile(scrubbedFile);
             AlbumFile albumFile = new AlbumFile(albumFileName);
             BookFile bookFile = new BookFile(bookFileName);
@@ -86,7 +123,7 @@ namespace MediaLibrary
                     // Display All Movies
                     foreach (Movie m in movieFile.Movies)
                     {
-                        Console.WriteLine(m.Display());
+                        m.Display();
                     }
                 }
                 else if (choice == "3")
@@ -141,7 +178,7 @@ namespace MediaLibrary
                     // Display All Albums
                     foreach (Album a in albumFile.Albums)
                     {
-                        Console.WriteLine(a.Display());
+                        a.Display();
                     }
                 }
                 else if (choice == "5")
@@ -200,7 +237,7 @@ namespace MediaLibrary
                     // Display All Books
                     foreach (Book b in bookFile.Books)
                     {
-                        Console.WriteLine(b.Display());
+                        b.Display();
                     }
                 }
             } while (choice == "1" || choice == "2" || choice == "3" || choice == "4" || choice == "5" || choice == "6");
